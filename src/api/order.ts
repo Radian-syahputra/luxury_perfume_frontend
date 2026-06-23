@@ -4,7 +4,7 @@ import type { ApiResponse,  Order} from "@/types";
 
 
 export const getMyOrder = async () => {
-    const response = await api.get<ApiResponse<Order>>('/api/orders/my-orders')
+    const response = await api.get<ApiResponse<Order[]>>('/api/orders/my-orders')
     return response.data
 }
 
@@ -19,7 +19,7 @@ export const createOrder = async (shippingAddress : string) => {
 
 
 export const cancelOrder = async (orderId : string) => {
-    const response = await api.delete<ApiResponse<Order>>(`/api/orders/${orderId}/cancel`)
+    const response = await api.put<ApiResponse<Order>>(`/api/orders/${orderId}/cancel`)
 
     return response.data
 }
@@ -41,7 +41,7 @@ export const getAllOrders = async () => {
 }
 
 
-export const updateOrderStatus = async (orderId : string, trackingNumber : string, status : string) => {
+export const updateOrderStatus = async (orderId : string, status : string, trackingNumber? : string) => {
     const response = await api.put<ApiResponse<Order>>(`/api/orders/${orderId}/status`, {
         trackingNumber,
         status
