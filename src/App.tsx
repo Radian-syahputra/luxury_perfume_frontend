@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import Navbar from "./components/shared/Navbar";
 import NotFoundPage from "./pages/NotFoundPage";
 import GuestRoute from "./components/shared/GuestRoute";
+import ProductPage from "./pages/product/ProductPage";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -43,11 +44,20 @@ const App = () => {
         {/* Notfound Route */}
         <Route path="/not-found" element={<NotFoundPage />} />
 
+        {/* Product */}
+        <Route path="/products" element={
+           <ProtectedRoute>  
+              <Layout>
+                <ProductPage />
+              </Layout>
+            </ProtectedRoute>
+        }/>
+
         {/* Protected Route */}
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute>  
               <Layout>
                 <HomePage />
               </Layout>
