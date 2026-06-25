@@ -5,27 +5,58 @@ import ProtectedRoute from "./components/shared/ProtectedRoute";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import HomePage from "./pages/HomePage";
+import Navbar from "./components/shared/Navbar";
+import NotFoundPage from "./pages/NotFoundPage";
+import GuestRoute from "./components/shared/GuestRoute";
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <>
+      <Navbar />
+      <main className="container mx-auto px-4 py-6">{children}</main>
+    </>
+  );
+};
 
 const App = () => {
   return (
     <>
       <Routes>
         {/* Public Route */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={
+            <GuestRoute>
+              <LoginPage />
+            </GuestRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <GuestRoute>
+              <RegisterPage />
+            </GuestRoute>
+          }
+        />
+
+        {/* Notfound Route */}
+        <Route path="/not-found" element={<NotFoundPage />} />
 
         {/* Protected Route */}
         <Route
           path="/"
           element={
             <ProtectedRoute>
-              <HomePage />
+              <Layout>
+                <HomePage />
+              </Layout>
             </ProtectedRoute>
           }
         />
 
-         {/* Redirect ke login kalau route tidak ditemukan */}
-         <Route path="*" element={<Navigate to={'/login'} replace/>} />
+        {/* Redirect ke Notfound kalau route tidak ditemukan */}
+        <Route path="*" element={<Navigate to={"/not-found"} replace />} />
       </Routes>
     </>
   );

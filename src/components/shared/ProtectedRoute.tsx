@@ -1,21 +1,20 @@
-import { useAuth } from "@/hooks/useAuth";
-import { Loader } from "lucide-react";
-import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth"
+import { Loader } from "lucide-react"
+import { Navigate } from "react-router-dom"
 
-
-const ProtectedRoute = ({children} : {children : React.ReactNode}) => {
-    const {userData, isLoading} = useAuth()
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+    const { userData, isLoading } = useAuth()
 
     if(isLoading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <Loader className="w-8 h-8 spin-in"/>
+            <div className="min-h-screen flex items-center justify-center bg-slate-950">
+                <Loader className="w-8 h-8 animate-spin text-white"/>
             </div>
         )
     }
 
     if(!userData?.data) {
-        return <Navigate to={'/login'} replace />
+        return <Navigate to="/login" replace />
     }
 
     return <>{children}</>
