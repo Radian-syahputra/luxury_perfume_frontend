@@ -9,6 +9,8 @@ import Navbar from "./components/shared/Navbar";
 import NotFoundPage from "./pages/NotFoundPage";
 import GuestRoute from "./components/shared/GuestRoute";
 import ProductPage from "./pages/product/ProductPage";
+import ProductDetailPage from "./pages/product/ProductDetailPage";
+import CartPage from "./pages/cart/CartPage";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -52,6 +54,24 @@ const App = () => {
               </Layout>
             </ProtectedRoute>
         }/>
+
+        {/* Product Detail */}
+        <Route path="/products/:id" element={
+          <ProtectedRoute>
+            <Layout>
+              <ProductDetailPage/>
+            </Layout>
+          </ProtectedRoute>
+        }/>
+
+        {/* Cart */}
+        <Route path="/cart" element={
+          <ProtectedRoute>
+            <Layout>
+              <CartPage/>
+            </Layout>
+          </ProtectedRoute>
+        } />
 
         {/* Protected Route */}
         <Route
